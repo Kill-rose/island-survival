@@ -51,11 +51,13 @@ function startTypewriter(html, onDone) {
   const SPEED = _typeSpeed; // ms/文字（グローバル設定値）
 
   textZone.elt.innerHTML = '';
+  textZone.elt.scrollTop = 0;
   _typeTimer = setInterval(() => {
     if (idx >= tokens.length) {
       clearInterval(_typeTimer);
       _typeTimer = null;
       textZone.elt.innerHTML = _typeFullHtml; // 最終的に完全なHTMLをセット
+      textZone.elt.scrollTop = 0;
       if (typeof _typeOnDone === 'function') _typeOnDone();
       return;
     }
@@ -72,6 +74,7 @@ function skipTypewriter() {
     clearInterval(_typeTimer);
     _typeTimer = null;
     textZone.elt.innerHTML = _typeFullHtml;
+    textZone.elt.scrollTop = 0;
     if (typeof _typeOnDone === 'function') {
       const cb = _typeOnDone;
       _typeOnDone = null;
@@ -302,6 +305,8 @@ function showBattleMessage(msg, waitForClick = false, afterFunc = null) {
 
   // 即時表示
   textZone.html(msg);
+  textZone.elt.scrollTop = 0;
+  textZone.elt.scrollTop = 0;
 
   if (waitForClick) {
     messageWaiting = true;

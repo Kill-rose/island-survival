@@ -101,6 +101,8 @@ body {
   line-height: 1.7;
   position: relative;
   min-height: 0;
+  overflow-wrap: anywhere;
+  scrollbar-gutter: stable;
 }
 
 #textZone.waiting::after {
@@ -411,13 +413,16 @@ button:disabled { background: var(--bg-deep); color: var(--text-faint); border-c
   body { overflow: hidden; height: 100dvh; }
 
   #container {
-    flex-direction: column;   /* 縦積み */
+    flex-direction: column !important;   /* 縦積み */
     height: 100dvh;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   /* 左ウィンドウ：上部 60% */
   #leftWindow {
     flex: 0 0 60dvh;
+    min-height: 0;
     border-right: none;
     border-bottom: 1px solid var(--border);
     width: 100%;
@@ -426,11 +431,14 @@ button:disabled { background: var(--bg-deep); color: var(--text-faint); border-c
   /* 左上の画像エリア */
   #leftTop {
     flex: 2;
+    min-height: 25dvh;
+    overflow: hidden;
   }
 
   /* 左下：テキスト + 操作パネル */
   #leftBottom {
     flex: 3;
+    min-height: 0;
   }
 
   #textZone {
@@ -441,6 +449,7 @@ button:disabled { background: var(--bg-deep); color: var(--text-faint); border-c
 
   #actionPanel {
     max-height: 22dvh;
+    min-height: 0;
     gap: 4px;
     padding: 5px 6px;
   }
@@ -449,6 +458,9 @@ button:disabled { background: var(--bg-deep); color: var(--text-faint); border-c
   button {
     font-size: clamp(12px, 3.8vw, 17px);
     padding: clamp(8px, 2dvh, 14px) clamp(8px, 3vw, 16px);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* info-badge（左上の経過時間等） */
@@ -466,6 +478,7 @@ button:disabled { background: var(--bg-deep); color: var(--text-faint); border-c
     flex-direction: column;     /* 縦積み：ステータス→アイテム */
     padding: 8px 10px;
     overflow: hidden;
+    min-height: 0;
     font-size: clamp(12px, 3.5vw, 16px);
   }
 
@@ -528,9 +541,12 @@ button:disabled { background: var(--bg-deep); color: var(--text-faint); border-c
 
   /* 立ち絵：縦画面では小さく */
   #portrait {
-    height: 90px;
-    bottom: calc(40dvh + 5px);
-    left: 10px;
+    height: min(30dvh, 180px);
+    max-width: 45%;
+    object-fit: contain;
+    object-position: bottom left;
+    bottom: 40%;
+    left: 6px;
   }
 
   /* 制作オーバーレイ：スマホでは1列 */
